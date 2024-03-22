@@ -11,7 +11,10 @@ const VMNumberTextField = VMTextField.named('VMNamedTextField')
 			self.setHelperText('Можно вводить только числа');
 			return;
 		}
+		self.setIsError(false);
+		self.setHelperText('');
 		self.setValue(value);
+
 	}
 }));
 export default VMNumberTextField;

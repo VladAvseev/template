@@ -8,7 +8,7 @@ type props = {
 }
 
 const VTextField: React.FC<props> = ({model}) => {
-	const { label, variant, isError, helperText, onChange } = model
+	const { label, value, variant, isError, helperText, onChange } = model
 	return (
 		<TextField 
 			onChange={(event) => onChange(event.target.value)}
@@ -16,6 +16,7 @@ const VTextField: React.FC<props> = ({model}) => {
 			variant={variant as TextFieldVariants}
 			error={isError}
 			helperText={helperText}
+			value={value}
 		/>				
 	)
 };
