@@ -5,12 +5,14 @@ import { observer } from "mobx-react-lite";
 
 type props = {
 	model: TVMSelectInstance;
+	className: string;
 }
 
-const VSelect: React.FC<props> = ({model}) => {
+const VSelect: React.FC<props> = ({model, className}) => {
 	const { selected, onChange, options } = model
 	return (
   <Select
+		className={className}
 		fullWidth={true}
     value={selected}
     onChange={onChange}

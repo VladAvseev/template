@@ -5,12 +5,14 @@ import { TVMNumberTextFieldInstance } from "./VMNumberTextField";
 
 type props = {
 	model: TVMTextFieldInstance | TVMNumberTextFieldInstance;
+	className: string;
 }
 
-const VTextField: React.FC<props> = ({model}) => {
+const VTextField: React.FC<props> = ({model, className}) => {
 	const { label, value, variant, isError, helperText, onChange } = model
 	return (
 		<TextField 
+			className={className}
 			onChange={(event) => onChange(event.target.value)}
 			label={label}
 			variant={variant as TextFieldVariants}
