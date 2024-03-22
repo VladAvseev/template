@@ -1,9 +1,10 @@
 import { TextField, TextFieldVariants } from "@mui/material";
 import { TVMTextFieldInstance } from "./VMTextField";
 import { observer } from "mobx-react-lite";
+import { TVMNumberTextFieldInstance } from "./VMNumberTextField";
 
 type props = {
-	model: TVMTextFieldInstance;
+	model: TVMTextFieldInstance | TVMNumberTextFieldInstance;
 }
 
 const VTextField: React.FC<props> = ({model}) => {
