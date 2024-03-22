@@ -1,10 +1,10 @@
 import { Route } from "react-router-dom"
-import EditTaskPage from "."
+import { CreateTaskPage } from "."
 
 export function create() {
   return (
 			<Route>
-				<Route path="/create_task" element={<EditTaskPage />} />			
+				<Route path="/create_task" element={<CreateTaskPage />} />			
 			</Route>
   )
 }

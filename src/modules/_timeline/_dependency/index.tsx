@@ -1,21 +1,21 @@
 // import { makeStyles } from "@material-ui/styles";
-import { editTask } from "./models";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { dependency } from "./models";
+import { useEffect } from "react";
 
 // const useStyles = makeStyles(() => ({
 // }));
 
-export const EditTaskPage: React.FC = () => {
-	const { start } = editTask;
+export const DependencyTimelinePage: React.FC = () => {
+	const { start } = dependency;
 	const { id } = useParams();
 
 	useEffect(() => {
-		if (id) {
+		if(id) {
 			start(Number(id));
 		}
 	}, []);
-
+	
 	// const styles = useStyles();
-	return <>EDIT TASK {id} PAGE</>
+	return <>DEPENDENCY TIMELINE {id} PAGE</>
 };

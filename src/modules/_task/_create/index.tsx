@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // const useStyles = makeStyles(() => ({
 // }));
 
-const CreateTaskPage: React.FC = () => {
+export const CreateTaskPage: React.FC = () => {
 	const { start } = createTask;
 
 	useEffect(() => {
@@ -15,4 +15,3 @@ const CreateTaskPage: React.FC = () => {
 	// const styles = useStyles();
 	return <>CREATE TASK PAGE</>
 };
-export default CreateTaskPage;

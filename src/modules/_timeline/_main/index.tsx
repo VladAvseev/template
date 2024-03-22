@@ -1,17 +1,17 @@
 // import { makeStyles } from "@material-ui/styles";
-import { timeline } from "./models";
+import { main } from "./models";
 import { useEffect } from "react";
 
 // const useStyles = makeStyles(() => ({
 // }));
 
-export const TimelinePage: React.FC = () => {
-	const { start } = timeline;
+export const MainTimelinePage: React.FC = () => {
+	const { start } = main;
 
 	useEffect(() => {
-		start();
+			start();
 	}, []);
 	
 	// const styles = useStyles();
-	return <>TIMELINE PAGE</>
+	return <>MAIN TIMELINE PAGE</>
 };
