@@ -6,6 +6,5 @@ export default defineConfig({
   plugins: [react()],
 	preview: {
 		cors: false,
-		open: true,
 	}
 })
