@@ -16,8 +16,8 @@ import VDatePicker from "../../../mvvm/DatePicker/VDatePicker";
 	} 
  }));
 
-const CreateTaskPage: React.FC = () => {
-	const { start, titleText, createBtn, taskResponsibleSelect, descriptionText, taskStatusSelect, dateSelect, taskSelect, connectionSelect, setConnectionBtn} = createTask;
+export const CreateTaskPage: React.FC = () => {
+	const { start, daysField, titleText, createBtn, taskResponsibleSelect, descriptionText, taskStatusSelect, dateSelect, taskSelect, connectionSelect, setConnectionBtn} = createTask;
 
 
 	useEffect(() => {
@@ -32,6 +32,7 @@ const CreateTaskPage: React.FC = () => {
 			<VSelect model={taskStatusSelect}/>
 			<VSelect model={taskResponsibleSelect}/>                                       	
 			<VDatePicker model={dateSelect}/>
+			<VTextField model={daysField}/>
 			<VSelect model={taskSelect}/>
 			<VSelect model={connectionSelect}/>
 			<VButton model={setConnectionBtn}/>                               
@@ -40,4 +41,3 @@ const CreateTaskPage: React.FC = () => {
 		);
 		
 };
-export default CreateTaskPage;

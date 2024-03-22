@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom"
-import EditTaskPage from "."
+import { EditTaskPage } from "."
 
 export function edit() {
   return (

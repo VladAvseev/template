@@ -4,6 +4,7 @@ import VMButton from "../../../../mvvm/Button/VMButton";
 import VMSelect from "../../../../mvvm/Select/VMSelect";
 import MSelectOption from "../../../../mvvm/Select/MSelectOption";
 import VMDatePicker from "../../../../mvvm/DatePicker/VMDatePicker";
+import VMNumberTextField from "../../../../mvvm/TextField/VMNumberTextField";
 
 export const createTask = types.model('createTask')
 .volatile(() => ({
@@ -14,6 +15,7 @@ export const createTask = types.model('createTask')
 	descriptionText : VMTextField.create({
 		label: "Описание задачи"
 	}),
+	daysField: VMNumberTextField.create({}),
 	taskStatusSelect: VMSelect.create({
 		options: [MSelectOption.create ({
 			label: "Создана",

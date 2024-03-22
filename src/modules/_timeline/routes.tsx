@@ -1,10 +1,11 @@
 import { Route } from "react-router-dom"
-import { TimelinePage } from "."
+import { dependency } from "./_dependency/routes"
 
 export function timeline() {
   return (
 			<Route>
-				<Route path="/timeline" element={<TimelinePage />} />			
+				{main()}
+				{dependency()}		
 			</Route>
   )
 }

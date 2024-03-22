@@ -1,22 +1,17 @@
 import { types } from "mobx-state-tree";
 
-export const editTask = types.model('editTask')
+export const main = types.model('editTask')
 .volatile(() => ({
 	// здесь будут модели компонентов страницы
-	id: 0,
 }))
 .views(() => ({
 
 }))
-.actions((self) => ({
+.actions(() => ({
 	// здесь другие методы страницы
-	setId(value: number) {
-		self.id = value;
-	},
 }))
-.actions((self) => ({
-	start(id: number) {
-		self.setId(id);
+.actions(() => ({
+	start() {
 		// здесь логика того что будет происходить при открытии страницы
 	},
 }))
