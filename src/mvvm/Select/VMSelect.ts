@@ -5,6 +5,7 @@ export type TVMSelectInstance = Instance<typeof VMSelect>;
 
 const VMSelect = types.model('VMSelect', {
 	options: types.array(MSelectOption),
+	label: types.optional(types.string, ''),
 })
 .views((self) => ({
 	get selected(): string {

@@ -5,7 +5,7 @@ import { TVMNumberTextFieldInstance } from "./VMNumberTextField";
 
 type props = {
 	model: TVMTextFieldInstance | TVMNumberTextFieldInstance;
-	className: string;
+	className?: string;
 }
 
 const VTextField: React.FC<props> = ({model, className}) => {

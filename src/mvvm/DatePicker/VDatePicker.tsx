@@ -4,7 +4,7 @@ import { TVMDatePickerInstance } from "./VMDatePicker";
 
 type props = {
 	model: TVMDatePickerInstance;
-	className: string;
+	className?: string;
 }
 
 const VDatePicker: React.FC<props> = ({model, className}) => {
