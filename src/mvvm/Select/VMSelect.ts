@@ -12,7 +12,7 @@ const VMSelect = types.model('VMSelect', {
 	},
 }))
 .actions((self) => ({
-	onChange(item) {
+	onChange(item: any) {
 		self.options.forEach((option) => {
 			if (item.target.value === option.value) {
 				option.setIsSelected(true);

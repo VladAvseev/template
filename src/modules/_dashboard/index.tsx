@@ -1,9 +1,9 @@
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
 import { useEffect } from "react";
 import { dashboard } from "./models";
 
-const useStyles = makeStyles(() => ({
-}));
+// const useStyles = makeStyles(() => ({
+// }));
 
 export const DashboardPage: React.FC = () => {
 	const { start } = dashboard;
@@ -12,6 +12,6 @@ export const DashboardPage: React.FC = () => {
 		start();
 	}, []);
 
-	const styles = useStyles();
+	// const styles = useStyles();
 	return <>DASHBOARD PAGE</>
 };

@@ -1,10 +1,10 @@
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
 import { editTask } from "./models";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const useStyles = makeStyles(() => ({
-}));
+// const useStyles = makeStyles(() => ({
+// }));
 
 const EditTaskPage: React.FC = () => {
 	const { start } = editTask;
@@ -16,7 +16,7 @@ const EditTaskPage: React.FC = () => {
 		}
 	}, []);
 
-	const styles = useStyles();
+	// const styles = useStyles();
 	return <>EDIT TASK {id} PAGE</>
 };
 export default EditTaskPage;

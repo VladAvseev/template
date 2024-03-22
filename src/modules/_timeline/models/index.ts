@@ -4,13 +4,13 @@ export const timeline = types.model('timeline')
 .volatile(() => ({
 	// здесь будут модели компонентов страницы
 }))
-.views((self) => ({
+.views(() => ({
 
 }))
-.actions((self) => ({
+.actions(() => ({
 	// здесь другие методы страницы
 }))
-.actions((self) => ({
+.actions(() => ({
 	start() {
 		// здесь логика того что будет происходить при открытии страницы
 	},

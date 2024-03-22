@@ -15,7 +15,7 @@ const VMDatePicker = types.model('VMDatePicker', {
 	},
 }))
 .actions((self) => ({
-	onChange(value) {
+	onChange(value: any) {
 		self.setValue(value.format());
 	}
 }))

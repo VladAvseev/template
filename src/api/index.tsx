@@ -1,6 +1,6 @@
-const URLS = {
+// const URLS = {
 
-}
+// }
 
 export const api = {
 	
