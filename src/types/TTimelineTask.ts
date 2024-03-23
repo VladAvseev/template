@@ -1,14 +1,14 @@
+import { TTaskStatus } from "./TTaskStatus";
 import { TUser } from "./TUser";
 import { TWarning } from "./TWarning";
 
 export type TTimelineTask = {
 	id: number;
+	status: TTaskStatus;
 	title: string;
-	status: string;
-	responsible: TUser;
-
+	deadline: Date;
 	start_date: Date;
 	finish_date: Date;
-	deadline: Date;
+	responsible: TUser;
 	warnings: TWarning[];
 };

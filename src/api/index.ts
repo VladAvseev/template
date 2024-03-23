@@ -1,6 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { apiDelete, apiGet, apiPost, apiPut } from './api';
 import { TTimelineTask } from '../types/TTimelineTask';
+import { TWarning } from '../types/TWarning';
+import { TDependencyType } from '../types/TDependencyType';
 
 
 export const URLS = {
@@ -15,7 +17,7 @@ export const URLS = {
 	updateTaskStatus: '/update_task_status',
 	editDeadline: '/edit_deadline',
 	archieveTask: '/archieve_task',
-	getEmployes: '/employes',
+	getUsers: '/users',
 };
 
 export type TGetDashboardTasksResponse = {
@@ -27,13 +29,12 @@ export type TGetDashboardTasksResponse = {
 				{
 					id: number,
 					title: string,
-					deadline: string,  // dd.mm.yyyy
-					delay_deadline: string | null, // dd.mm.yyyy
+					deadline: string,
 					responsible: {
 						user_id: number,
 						username: string,
 					},
-					is_archieved: boolean,
+					warnings: TWarning[]
 				}
 			]
 		}
@@ -46,23 +47,28 @@ export type TGetTaskDescriptionParams = {
 
 export type TGetTaskDescriptionResponse = {
 	id: number,
+	status: string,
 	title: string,
 	description: string,
-	created_at: string, // dd.mm.yyyy
-	deadline: string, // dd.mm.yyyy
+	created_at: string,
+	deadline: string,
 	responsible: {
 			user_id: number,
 			username: string
 	}
+	warnings: TWarning[],
 	is_archieved: boolean,
-	delay_deadline: string | null, // dd.mm.yyyy
-	estimated_completion_time: number,
+	days_for_completion: number,
+	actual_start_date: string,
+	actual_finish_date: string,
+	actual_completion_days: number | null,
 	dependencies: [
 		{
 			type: string,
 			task_name: string,
 			status: string,
 			task_id: number,
+			warnings: TWarning[],
 		}
 	]
 };
@@ -76,20 +82,7 @@ export type TGetTimelineDependenciesParams = {
 };
 
 export type TGetTimelineDependenciesResponse = {
-	tasks: [
-		{
-			id: number,
-			dependency_type: string,
-			title: string,
-			deadline: string, // dd.mm.yyyy
-			delay_deadline: string | null, // dd.mm.yyyy
-			supposed_start_date: string, // dd.mm.yyyy
-			responsible: {
-					user_id: number,
-					username: string
-			}
-		}
-	],
+	tasks: TTimelineTask & { dependency_type: TDependencyType }
 };
 
 export type TEditTaskParams = {
@@ -98,12 +91,8 @@ export type TEditTaskParams = {
 		title: string,
 		description: string,
 		deadline: string, // dd.mm.yyyy
-		responsible: {
-				user_id: number
-		}
-		is_archieved: boolean,
-		delay_deadline: string | null, // dd.mm.yyyy
-		supposed_start_date: string, // dd.mm.yyyy
+		responsible_user_id: number,
+		days_for_completion: number,
 	}
 };
 
@@ -141,11 +130,7 @@ export type TArchieveTaskParams = {
 	task_id: number,
 };
 
-export type TGetEmployesParams = {
-	task_id: number,
-};
-
-export type TGetEmployesResponse = {
+export type TGetUsersResponse = {
 	users: {
 		id: number,
 		name: string,
@@ -186,7 +171,7 @@ export const api = {
 	archieveTask: (params: TArchieveTaskParams): Promise<AxiosResponse> => {
 		return apiPost(URLS.archieveTask, params);
 	},
-	getEmployes: (params: TGetEmployesParams): Promise<AxiosResponse<TGetEmployesResponse>> => {
-		return apiGet(URLS.getEmployes, params);
+	getUsers: (): Promise<AxiosResponse<TGetUsersResponse>> => {
+		return apiGet(URLS.getUsers);
 	},
 };

@@ -1,0 +1,1 @@
+export type TDependencyType = 'depends_of' | 'dependent_for';
