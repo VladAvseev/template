@@ -19,9 +19,10 @@ export const URLS = {
 };
 
 export type TGetDashboardTasksResponse = {
-	tasks: [
+	progress: number,
+	statuses: [
 		{
-			status: string,
+			status_name: string,
 			tasks: [
 				{
 					id: number,

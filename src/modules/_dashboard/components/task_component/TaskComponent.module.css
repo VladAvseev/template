@@ -1,0 +1,7 @@
+.taskComponent {
+    display: flex;
+    padding: 15px;
+    border: 1px solid teal;
+    justify-content: space-between;
+    align-items: center;
+}
