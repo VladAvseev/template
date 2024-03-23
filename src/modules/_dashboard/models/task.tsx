@@ -1,7 +1,7 @@
 import { Instance, types } from "mobx-state-tree"
 import { Responsible } from "./responsible_user"
 
-export type TTaskInstance = Instance<typeof Task>;
+export type TTaskInstance = Instance<typeof Task>
 export const Task =  types.model("Task", {
     id: types.integer,
     title: types.string,

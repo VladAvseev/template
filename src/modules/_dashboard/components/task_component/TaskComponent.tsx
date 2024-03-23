@@ -9,7 +9,7 @@ type props = {
 export const TaskComponent: React.FC<props> = ({ task }) => {
   return (
     <div className={c.taskComponent}>
-      <h3>{task.title}</h3>
+      <strong>{task.title}</strong>
       <p>Дедлайн: {task.deadline.toString()}</p>
     </div>
   )
