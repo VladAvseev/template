@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { dashboard } from "./models";
 import { ColumnComponent } from "./components/column_component/ColumnComponent";
 import { makeStyles } from "@material-ui/styles";
+import { ProgressBar } from "./components/progress_bar/ProgressBar";
 
 const useStyles = makeStyles(() => ({
 	dashboard: {
@@ -24,6 +25,7 @@ export const DashboardPage: React.FC = () => {
 	const styles = useStyles();
 	return (
 		<div>
+			<ProgressBar currentProgress={ dashboard.currentProgress } />
 			<h2 className={styles.title}>Dashboard</h2>
 			<div className={styles.dashboard}>
 				<ColumnComponent

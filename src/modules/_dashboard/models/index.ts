@@ -1,8 +1,5 @@
 import { types } from "mobx-state-tree";
 import { Status } from "./status";
-import { Task } from "./task";
-import { Responsible } from "./responsible_user";
-import axios from "axios";
 import { api } from "../../../api";
 
 export const dashboard = types.model('dashboard')
@@ -16,28 +13,37 @@ export const dashboard = types.model('dashboard')
 			status_name: 'Задачи',
 			tasks: []
 		})
-	]
-
+	],
+	currentProgress: 13.37
 }))
 .views(() => ({
-
+	
 }))
-.actions(() => ({
-	// здесь другие методы страницы
-	getAllTasks: () => {
-		const url = 'some_url'
-		axios.get(url).then(response => {
-			const tasks = response.data
-			console.log(tasks)
-		})
+.actions((self) => ({
+	setColumns: (data) => {
+		const colums = data.map((item) => Status.create({
+			status_name: item.status_name,
+			tasks: item.tasks
+		}))
+		self.columns = colums;
 	}
 }))
-.actions(() => ({
+.actions((self) => ({
+	// здесь другие методы страницы
+	getTasks: async () => {
+		const res = await api.getDashboardTasks();
+		const {data: {
+			progress,
+			statuses,
+		}} = res
+		console.log(statuses)
+		self.setColumns(statuses)
+		self.currentProgress = progress
+	}
+}))
+.actions((self) => ({
 	start() {
-		api.getDashboardTasks().then(response => {
-			console.log(response.data)
-		})
-		// здесь логика того что будет происходить при открытии страницы
+		self.getTasks()
 	},
 }))
 .create({});
