@@ -5,7 +5,7 @@ export type TTaskInstance = Instance<typeof Task>
 export const Task =  types.model("Task", {
     id: types.integer,
     title: types.string,
-    deadline: types.Date,  // dd.mm.yyyy
-    delay_deadline: types.maybeNull(types.Date), // dd.mm.yyyy
+    deadline: types.string,  // dd.mm.yyyy
+    delay_deadline: types.maybeNull(types.string), // dd.mm.yyyy
     responsible: Responsible
 })

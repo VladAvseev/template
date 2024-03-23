@@ -1,6 +1,7 @@
 import React from "react";
 import c from "./TaskComponent.module.css"
 import { TTaskInstance } from "../../models/task";
+import { Paper } from "@mui/material";
 
 type props = {
   task: TTaskInstance
@@ -8,9 +9,9 @@ type props = {
 
 export const TaskComponent: React.FC<props> = ({ task }) => {
   return (
-    <div className={c.taskComponent}>
+    <Paper className={c.taskComponent}>
       <strong>{task.title}</strong>
-      <p>Дедлайн: {task.deadline.toString()}</p>
-    </div>
+      <p>Дедлайн: {task.deadline}</p>
+    </Paper>
   )
 }

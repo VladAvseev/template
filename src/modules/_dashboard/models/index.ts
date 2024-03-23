@@ -12,8 +12,8 @@ export const dashboard = types.model('dashboard')
 				Task.create({
 					id: 0,
 					title: 'Задача 1',
-					deadline: new Date(),
-					delay_deadline: new Date(),
+					deadline: '2024-04-04',
+					delay_deadline: '2024-04-04',
 					responsible: Responsible.create({
 						user_id: 12,
 						username: "Yuriy"
