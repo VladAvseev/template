@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { apiDelete, apiGet, apiPost, apiPut } from './api';
+import { TTimelineTask } from '../types/TTimelineTask';
 
 
 export const URLS = {
@@ -18,26 +19,24 @@ export const URLS = {
 };
 
 export type TGetDashboardTasksResponse = {
-	data: {
-		tasks: [
-			{
-				status: string,
-				tasks: [
-					{
-						id: number,
-						title: string,
-						deadline: string,  // dd.mm.yyyy
-						delay_deadline: string | null, // dd.mm.yyyy
-						responsible: {
-							user_id: number,
-							username: string,
-						},
-						is_archieved: boolean,
-					}
-				]
-			}
-		]
-	}
+	tasks: [
+		{
+			status: string,
+			tasks: [
+				{
+					id: number,
+					title: string,
+					deadline: string,  // dd.mm.yyyy
+					delay_deadline: string | null, // dd.mm.yyyy
+					responsible: {
+						user_id: number,
+						username: string,
+					},
+					is_archieved: boolean,
+				}
+			]
+		}
+	]
 };
 
 export type TGetTaskDescriptionParams = {
@@ -45,46 +44,30 @@ export type TGetTaskDescriptionParams = {
 };
 
 export type TGetTaskDescriptionResponse = {
-	data: {
-		id: number,
-		title: string,
-		description: string,
-		created_at: string, // dd.mm.yyyy
-		deadline: string, // dd.mm.yyyy
-		responsible: {
-				user_id: number,
-				username: string
-		}
-		is_archieved: boolean,
-		delay_deadline: string | null, // dd.mm.yyyy
-		estimated_completion_time: number,
-		dependencies: [
-			{
-				type: string,
-				task_name: string,
-				status: string,
-				task_id: number,
-			}
-		]
+	id: number,
+	title: string,
+	description: string,
+	created_at: string, // dd.mm.yyyy
+	deadline: string, // dd.mm.yyyy
+	responsible: {
+			user_id: number,
+			username: string
 	}
+	is_archieved: boolean,
+	delay_deadline: string | null, // dd.mm.yyyy
+	estimated_completion_time: number,
+	dependencies: [
+		{
+			type: string,
+			task_name: string,
+			status: string,
+			task_id: number,
+		}
+	]
 };
 
 export type TGetTimelineTasksResponse = {
-	data: {
-		tasks: [
-			{
-				id: number,
-				title: string,
-				deadline: string, // dd.mm.yyyy
-				delay_deadline: string | null, // dd.mm.yyyy
-				estimated_start_date: string, // dd.mm.yyyy
-				responsible: {
-						user_id: number,
-						username: string
-				}
-			}
-		]
-	}
+	tasks: TTimelineTask[]
 };
 
 export type TGetTimelineDependenciesParams = {
@@ -92,41 +75,35 @@ export type TGetTimelineDependenciesParams = {
 };
 
 export type TGetTimelineDependenciesResponse = {
-	data: {
-		tasks: [
-			{
-				id: number,
-				dependency_type: string,
-				title: string,
-				deadline: string, // dd.mm.yyyy
-				delay_deadline: string | null, // dd.mm.yyyy
-				supposed_start_date: string, // dd.mm.yyyy
-				responsible: {
-						user_id: number,
-						username: string
-				}
+	tasks: [
+		{
+			id: number,
+			dependency_type: string,
+			title: string,
+			deadline: string, // dd.mm.yyyy
+			delay_deadline: string | null, // dd.mm.yyyy
+			supposed_start_date: string, // dd.mm.yyyy
+			responsible: {
+					user_id: number,
+					username: string
 			}
-		],
-	}
+		}
+	],
 };
 
 export type TEditTaskParams = {
 	task_id: number,
-		task_data: {
-			title: string,
-			description: string,
-			deadline: string, // dd.mm.yyyy
-			responsible: {
-					user_id: number
-			}
-			is_archieved: boolean,
-			delay_deadline: string | null, // dd.mm.yyyy
-			supposed_start_date: string, // dd.mm.yyyy
+	task_data: {
+		title: string,
+		description: string,
+		deadline: string, // dd.mm.yyyy
+		responsible: {
+				user_id: number
 		}
-};
-
-export type TEditTaskResponse = {
-	status: string,	
+		is_archieved: boolean,
+		delay_deadline: string | null, // dd.mm.yyyy
+		supposed_start_date: string, // dd.mm.yyyy
+	}
 };
 
 export type TCreateTaskParams = {
@@ -139,17 +116,9 @@ export type TCreateTaskParams = {
 	estimated_completion_time: number,
 };
 
-export type TCreateTaskResponse = {
-	status: string,	
-};
-
 export type TAddTaskDependencyParams = {
 	task_id: number, // задача, которой устанавливается зависимость
 	depends_of_task_id: number, // задача, от которой зависит
-};
-
-export type TAddTaskDependencyResponse = {
-	status: string,	
 };
 
 export type TDelTaskDependencyParams = {
@@ -157,17 +126,9 @@ export type TDelTaskDependencyParams = {
 	depends_of_task_id: number, // задача, от которой зависит
 };
 
-export type TDelTaskDependencyResponse = {
-	status: string,	
-};
-
 export type TUpdateTaskStatusParams = {
 	task_id: number,
 	new_status: string
-};
-
-export type TUpdateTaskStatusResponse = {
-	status: string,	
 };
 
 export type TEditDeadlineParams = {
@@ -175,16 +136,8 @@ export type TEditDeadlineParams = {
 	new_deadline: string, // dd.mm.yyyy
 };
 
-export type TEditDeadlineResponse = {
-	status: string,	
-};
-
 export type TArchieveTaskParams = {
 	task_id: number,
-};
-
-export type TArchieveTaskResponse = {
-	status: string,	
 };
 
 export type TGetEmployesParams = {
@@ -193,7 +146,7 @@ export type TGetEmployesParams = {
 
 export type TGetEmployesResponse = {
 	users: {
-		user_id: number,
+		id: number,
 		name: string,
 	}[],
 };
@@ -211,25 +164,25 @@ export const api = {
 	getTimelineDependencies: (params: TGetTimelineDependenciesParams): Promise<AxiosResponse<TGetTimelineDependenciesResponse>> => {
 		return apiGet(URLS.getTimelineDependencies, params);
 	},
-	editTask: (params: TEditTaskParams): Promise<AxiosResponse<TEditTaskResponse>> => {
+	editTask: (params: TEditTaskParams): Promise<AxiosResponse> => {
 		return apiPut(URLS.editTask, params);
 	},
-	createTask: (params: TCreateTaskParams): Promise<AxiosResponse<TCreateTaskResponse>> => {
+	createTask: (params: TCreateTaskParams): Promise<AxiosResponse> => {
 		return apiPut(URLS.createTask, params);
 	},
-	addTaskDependency: (params: TAddTaskDependencyParams): Promise<AxiosResponse<TAddTaskDependencyResponse>> => {
+	addTaskDependency: (params: TAddTaskDependencyParams): Promise<AxiosResponse> => {
 		return apiPost(URLS.addTaskDependency, params);
 	},
-	delTaskDependency: (params: TDelTaskDependencyParams): Promise<AxiosResponse<TDelTaskDependencyResponse>> => {
+	delTaskDependency: (params: TDelTaskDependencyParams): Promise<AxiosResponse> => {
 		return apiDelete(URLS.delTaskDependency, params);
 	},
-	updateTaskStatus: (params: TUpdateTaskStatusParams): Promise<AxiosResponse<TUpdateTaskStatusResponse>> => {
+	updateTaskStatus: (params: TUpdateTaskStatusParams): Promise<AxiosResponse> => {
 		return apiPut(URLS.updateTaskStatus, params);
 	},
-	editDeadline: (params: TEditDeadlineParams): Promise<AxiosResponse<TEditDeadlineResponse>> => {
+	editDeadline: (params: TEditDeadlineParams): Promise<AxiosResponse> => {
 		return apiPut(URLS.editDeadline, params);
 	},
-	archieveTask: (params: TArchieveTaskParams): Promise<AxiosResponse<TArchieveTaskResponse>> => {
+	archieveTask: (params: TArchieveTaskParams): Promise<AxiosResponse> => {
 		return apiPost(URLS.archieveTask, params);
 	},
 	getEmployes: (params: TGetEmployesParams): Promise<AxiosResponse<TGetEmployesResponse>> => {
