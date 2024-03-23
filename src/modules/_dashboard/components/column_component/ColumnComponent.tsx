@@ -10,9 +10,9 @@ type props = {
 
 export const ColumnComponent: React.FC<props> = ({status}) => {
     return (
-        <Paper style={{width: '20%'}}>
-            <h3 style={{textAlign: 'center'}} >{status.status_name}</h3>
-            <div className={c.ColumnComponent}>
+        <Paper>
+            <h3 style={{ textAlign: "center" }}>{status.status_name}</h3>
+            <div className={c.columnComponent}>
                 { status.tasks.map((task) => <TaskComponent key={task.id} task={task} />)}
             </div>
         </Paper>

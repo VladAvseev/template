@@ -2,25 +2,21 @@ import { types } from "mobx-state-tree";
 import { Status } from "./status";
 import { Task } from "./task";
 import { Responsible } from "./responsible_user";
+import axios from "axios";
+import { api } from "../../../api";
 
 export const dashboard = types.model('dashboard')
 .volatile(() => ({
 	columns: [
 		Status.create({
+			status_name: 'Не начато',
+			tasks: []
+	}),
+		Status.create({
 			status_name: 'Задачи',
-			tasks: [
-				Task.create({
-					id: 0,
-					title: 'Задача 1',
-					deadline: '2024-04-04',
-					delay_deadline: '2024-04-04',
-					responsible: Responsible.create({
-						user_id: 12,
-						username: "Yuriy"
-					})
-				})
-			]
-	})],
+			tasks: []
+		})
+	]
 
 }))
 .views(() => ({
@@ -28,9 +24,19 @@ export const dashboard = types.model('dashboard')
 }))
 .actions(() => ({
 	// здесь другие методы страницы
+	getAllTasks: () => {
+		const url = 'some_url'
+		axios.get(url).then(response => {
+			const tasks = response.data
+			console.log(tasks)
+		})
+	}
 }))
 .actions(() => ({
 	start() {
+		api.getDashboardTasks().then(response => {
+			console.log(response.data)
+		})
 		// здесь логика того что будет происходить при открытии страницы
 	},
 }))
