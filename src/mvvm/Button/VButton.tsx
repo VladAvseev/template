@@ -4,12 +4,14 @@ import { TVMButtonInstance } from "./VMButton";
 
 type props = {
 	model: TVMButtonInstance;
+	className?: string;
 }
 
-const VButton: React.FC<props> = ({model}): JSX.Element => {
+const VButton: React.FC<props> = ({model, className}): JSX.Element => {
 	const { onClick, isDisabled, text } = model;
 	return (
 			<Button
+				className={className}
 				onClick={onClick} 
 				disabled={isDisabled} 
 				variant="contained"
