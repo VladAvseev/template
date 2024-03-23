@@ -1,10 +1,14 @@
 import { TUser } from "./TUser";
+import { TWarning } from "./TWarning";
 
 export type TTimelineTask = {
 	id: number;
 	title: string;
-	deadline: Date; // dd.mm.yyyy
-	delay_deadline: Date | null; // dd.mm.yyyy
-	estimated_start_date: Date; // dd.mm.yyyy
+	status: string;
 	responsible: TUser;
+
+	start_date: Date;
+	finish_date: Date;
+	deadline: Date;
+	warnings: TWarning[];
 };
