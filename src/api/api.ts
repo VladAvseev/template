@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-export const baseURL = "server:";
+export const baseURL = "http://192.168.164.146:8080";
 
 axios.defaults.baseURL = baseURL;
 

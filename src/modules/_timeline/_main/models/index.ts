@@ -9,10 +9,25 @@ export const main = types.model('editTask')
 }))
 .views((self) => ({
 	get startDate(): Date {
-		return self.timeline.tasks[0]?.start_date || new Date();
+		let date = new Date();
+		self.timeline.tasks.forEach((task) => {
+			if (datesDiference(date, task.start_date) > 0) {
+				date = task.start_date;
+			}
+		})
+		return date;
 	},
 	get finishDate(): Date {
-		return datePlusOneDay(self.timeline.tasks[self.timeline.tasks.length - 1]?.deadline || new Date());
+		let date = new Date();
+		self.timeline.tasks.forEach((task) => {
+			if (datesDiference(task.deadline, date) > 0) {
+				date = task.deadline;
+			}
+			if (datesDiference(task.finish_date, date) > 0) {
+				date = task.finish_date;
+			}
+		})
+		return datePlusOneDay(date);
 	},
 	get daysCount(): number {
 		if (this.startDate && this.finishDate) {

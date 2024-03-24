@@ -4,7 +4,7 @@ import { TaskComponent } from "./TaskComponent";
 
 const useStyles = makeStyles(() => ({
 	cell: {
-		borderRight: '5px solid red',
+		borderRight: '5px solid  #CC0000',
 	}
 }));
 

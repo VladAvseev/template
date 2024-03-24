@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
 	container: {
-		margin: '60px 0 0 0',
+		margin: '80px 0 0 0',
 	}
 }))
 

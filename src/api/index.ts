@@ -83,7 +83,7 @@ export type TGetTimelineDependenciesParams = {
 };
 
 export type TGetTimelineDependenciesResponse = {
-	tasks: TTimelineTask & { dependency_type: TDependencyType }
+	tasks: TTimelineTask[];
 };
 
 export type TEditTaskParams = {
