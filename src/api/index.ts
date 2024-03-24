@@ -18,6 +18,7 @@ export const URLS = {
 	editDeadline: '/edit_deadline',
 	archieveTask: '/archieve_task',
 	getUsers: '/users',
+	getAllTasks: '/all_tasks',
 };
 
 export type TGetDashboardTasksResponse = {
@@ -141,6 +142,12 @@ export type TGetUsersResponse = {
 	}[],
 };
 
+export type TGetAllTasksResponse = {
+	tasks: {
+		id: number,
+		title: string,
+	}[],
+};
 export const api = {
 	getDashboardTasks: (): Promise<AxiosResponse<TGetDashboardTasksResponse>> => {
 		return apiGet(URLS.getDashboardTasks);
@@ -177,5 +184,8 @@ export const api = {
 	},
 	getUsers: (): Promise<AxiosResponse<TGetUsersResponse>> => {
 		return apiGet(URLS.getUsers);
+	},
+	getAllTasks: (): Promise<AxiosResponse<TGetAllTasksResponse>> => {
+		return apiGet(URLS.getAllTasks);
 	},
 };
