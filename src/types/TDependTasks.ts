@@ -1,7 +1,6 @@
 import { TDependencyType } from "./TDependencyType"
 
 export type TDependTasks = {
-    id: number,
-    name: string,
+    task_id: number,
     depend: TDependencyType
 }

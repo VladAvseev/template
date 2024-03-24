@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import { createTask } from "./models";
 import { useEffect} from "react";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import VTextField from "../../../mvvm/TextField/VTextField";
 import VButton from "../../../mvvm/Button/VButton";
 import VSelect from "../../../mvvm/Select/VSelect";
@@ -13,7 +13,8 @@ import { observer } from "mobx-react-lite";
  const useStyles = makeStyles(() => ({
 	taskForm: {
 		padding: "20px",
-		width: "50%", 
+		width: "90vw", 
+		height: "calc(100vh - 110px)",
 		margin: "0 auto"
 	},
 	container: {
@@ -23,7 +24,7 @@ import { observer } from "mobx-react-lite";
 	},
 	containerBtn: {
 		display: "flex",
-		justifyContent: "space-between",
+		justifyContent: "flex-end",
 		marginTop: "10px"
 	},
 	column: {
@@ -35,6 +36,7 @@ import { observer } from "mobx-react-lite";
 	},
 	description: {
 		width: "100%",
+		marginTop: "10px"
 	},
 	params: {
 		width: "45%"
@@ -54,7 +56,7 @@ import { observer } from "mobx-react-lite";
 
 export const CreateTaskPage: React.FC = observer(() => {
 	const { start, isForm, 
-		addBtn, listDepends, deleteBtn, 
+		addBtn, listDepends, 
 		daysField, titleText, createBtn, 
 		taskResponsibleSelect, descriptionText, 
 		taskStatusSelect, dateSelect, taskSelect, 
@@ -68,10 +70,12 @@ export const CreateTaskPage: React.FC = observer(() => {
 	const styles = useStyles();
 	return (
 		<Paper className={styles.taskForm} elevation={3}>
-			<h1 className={styles.header}>Создание задачи</h1>
+			<Typography variant="h4" className={styles.header}>Создание задачи</Typography>
 			<div className={styles.container}>
 				<span className={styles.column}>
-					<VTextField className={styles.taskName} model={titleText}/>
+					<div className={styles.taskName}>
+					<VTextField model={titleText}/>
+					</div>
 					<VTextField className={styles.description} model={descriptionText}/>
 				</span>
 				<span className={styles.column}>
@@ -95,7 +99,6 @@ export const CreateTaskPage: React.FC = observer(() => {
 				}
 			</div>
 			<div className={styles.containerBtn}>
-				<VButton model={deleteBtn}/>
 				<VButton model={createBtn}/>
 			</div>                      
   		</Paper> 

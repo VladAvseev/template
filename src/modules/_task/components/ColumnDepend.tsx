@@ -10,7 +10,7 @@ export const ColumnDepend: React.FC<props> = (props) => {
     return (
         <span>
             <div>
-                { props.tasks.map((task) => <TDependTaskComponent key={task.id} task={task} />)}
+                { props.tasks.map((task) => <TDependTaskComponent key={task.task_id} task={task} />)}
             </div>
         </span>
     )

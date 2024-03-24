@@ -109,7 +109,7 @@ export type TCreateTaskParams = {
 	estimated_completion_time: number,
 	dependedependencies: {
 		task_id: number;
-		type: TDependencyType;
+		depend: TDependencyType
 	}[]
 };
 

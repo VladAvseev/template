@@ -86,8 +86,8 @@ export const createTask = types.model('createTask')
 		text: "Создать новую связь"
 	}),
 	listDepends: [
-
-		],
+		
+		] as (TDependTasks & {type: string, title: string})[],
 	deliteDependBtn: VMButton.create({
 		text: "Удалить связь"
 	})
@@ -112,8 +112,8 @@ export const createTask = types.model('createTask')
 		const { data: {tasks} } = res;
 		self.taskSelect.setListTasks(tasks)
 	},
-	async setListDepends(value: TDependTasks[]){
-		self.listDepends
+	async setListDepends(value: (TDependTasks & {type: string, title: string})[]){
+		self.listDepends = value
 	},
 	async createNewTask(value: TCreateTaskParams) {
 		await api.createTask(value);
@@ -124,9 +124,13 @@ export const createTask = types.model('createTask')
 		self.addBtn.setOnClick(() => {self.setIsForm(true)}),
 		self.setConnectionBtn.setOnClick(() => {
 			self.setIsForm(false);
-			self.setListDepends([...self.listDepends, 
-				{id: Number(self.taskSelect.selected.value), 
-					name: self.taskSelect.selected.label, depend: self.connectionSelect.selected.value as TDependencyType}]);
+			self.setListDepends([...self.listDepends, {
+				task_id: Number(self.taskSelect.selected.value),
+				depend: (self.connectionSelect.selected.value) as TDependencyType,
+				type: self.connectionSelect.selected.label,
+				title: self.taskSelect.selected.label
+			}
+				]);
 		}),
 		self.createBtn.setOnClick(() => {
 				self.createNewTask({

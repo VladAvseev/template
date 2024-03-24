@@ -10,15 +10,15 @@ type props = {
 }
 
 export const TDependTaskComponent: React.FC<props> = ({ task }) => {
-  const {deliteDependBtn} = createTask
+  const {} = createTask
   return (
     <Paper className={style.taskLine}>
       <span className={style.taskDescription}>
-      <p className={style.taskName}>id: {task.id}</p>
+      <p className={style.taskName}>id: {task.task_id}</p>
       <h3 className={style.taskName}>Задача: {task.title}</h3>
       <p className={style.taskName}>Связь: {task.type}</p>
       </span>
-      <VButton model={deliteDependBtn}></VButton>
+      
     </Paper>
   )
 }
