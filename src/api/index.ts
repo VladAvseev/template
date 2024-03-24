@@ -2,8 +2,6 @@ import { AxiosResponse } from 'axios';
 import { apiDelete, apiGet, apiPost, apiPut } from './api';
 import { TTimelineTask } from '../types/TTimelineTask';
 import { TWarning } from '../types/TWarning';
-import { TDependencyType } from '../types/TDependencyType';
-
 
 export const URLS = {
 	getDashboardTasks: '/dashboard_tasks',
@@ -19,6 +17,7 @@ export const URLS = {
 	archieveTask: '/archieve_task',
 	getUsers: '/users',
 	getAllTasks: '/all_tasks',
+	sendReport: '/send_report',
 };
 
 export type TGetDashboardTasksResponse = {
@@ -188,4 +187,7 @@ export const api = {
 	getAllTasks: (): Promise<AxiosResponse<TGetAllTasksResponse>> => {
 		return apiGet(URLS.getAllTasks);
 	},
+	sendReport: (): Promise<AxiosResponse> => {
+		return apiGet(URLS.sendReport);
+	}
 };

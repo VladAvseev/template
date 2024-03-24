@@ -8,12 +8,12 @@ type props = {
 
 export const ProgressBar: React.FC<props> = ({ currentProgress }) => {
     return (
-        <div className={styles.progressBar}>
+      <div className={styles.progressBar}>
 			<Typography>Общий прогресс:</Typography>
 			<LinearProgress
 				variant="determinate"
 				value={currentProgress}
-				style={{ width: '100%' }}
+				style={{ width: '80%' }}
 			/>
 			<Typography>{currentProgress}%</Typography>
 		</div>

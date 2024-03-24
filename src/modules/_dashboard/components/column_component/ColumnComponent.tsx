@@ -16,7 +16,7 @@ export const ColumnComponent: React.FC<props> = ({ status }) => {
     }
 
     return (
-        <Paper className={c.columnComponent}>
+        <Paper className={c.columnComponent} elevation={5}>
             <Typography style={{ textAlign: "center", marginBottom: 10 }}>{statusTranslations[status.status_name]}</Typography>
             <div>
                 {status.tasks.map(task => <TaskComponent key={task.id} task={task} />)}
