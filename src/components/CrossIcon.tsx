@@ -5,7 +5,7 @@ const useStyles = makeStyles(() => ({
 		width: 20,
 		height: 20,
 		borderRadius: '50%',
-		background: ' #FF8000',
+		background: ' #FF0066',
 
 		display: 'flex',
 		justifyContent: 'center',
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-export const SoftIcon: React.FC = () => {
+export const CrossIcon: React.FC = () => {
 
 	const styles = useStyles();
 	return (

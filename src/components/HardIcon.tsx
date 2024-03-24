@@ -5,7 +5,7 @@ const useStyles = makeStyles(() => ({
 		width: 20,
 		height: 20,
 		borderRadius: '50%',
-		background: 'red',
+		background: ' #CC0000',
 
 		display: 'flex',
 		justifyContent: 'center',

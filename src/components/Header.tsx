@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
 		position: 'fixed',
 		top: 0,
 		left: 0,
-		height: 50,
+		height: 60,
 		display: 'flex',
 		alignItems: 'center',
 		padding: 15,
@@ -17,24 +17,53 @@ const useStyles = makeStyles(() => ({
 
 export const Header: React.FC = () => {
 	const styles = useStyles();
-	return (
-		<Paper className={styles.header}>
-			{
-				location.pathname.includes('timeline') 
-					? <>
-							<Link href={'/dashboard'} >Доска</Link>
-							<Link href={'/create_task'} >Создать задачу</Link>
-						</>
-					: location.pathname.includes('/dashboard') 
-					? <>
-								<Link href={'/main_timeline'} >Таймлайн</Link>
-								<Link href={'/create_task'} >Создать задачу</Link>
-							</> 
-						: <>
-							<Link href={'/dashboard'} >Доска</Link>
-							<Link href={'/main_timeline'} >Таймлайн</Link>
-							</>
-			}
-		</Paper>
-	)
+
+	if (location.pathname.includes('main_timeline')) {
+		return (
+			<Paper className={styles.header}>
+				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/create_task'} >Создать задачу</Link>
+			</Paper>
+		)
+	}	
+	
+	if (location.pathname.includes('/dashboard')) {
+		return (
+			<Paper className={styles.header}>
+				<Link href={'/main_timeline'} >Таймлайн</Link>
+				<Link href={'/create_task'} >Создать задачу</Link>
+			</Paper>
+		)
+	}	
+
+	if (location.pathname.includes('dependency_timeline')) {
+		return (
+			<Paper className={styles.header}>
+				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/main_timeline'} >Таймлайн</Link>	
+				<Link href={'/create_task'} >Создать задачу</Link>
+			</Paper>
+		)
+	}	
+	
+	if (location.pathname.includes('edit_task')) {
+		return (
+			<Paper className={styles.header}>
+				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/main_timeline'} >Таймлайн</Link>
+				<Link href={'/create_task'} >Создать задачу</Link>
+			</Paper>
+		)
+	}	
+
+	if (location.pathname.includes('create_task')) {
+		return (
+			<Paper className={styles.header}>
+				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/main_timeline'} >Таймлайн</Link>
+			</Paper>
+		)
+	}	
+
+	return <Paper className={styles.header} />;
 };

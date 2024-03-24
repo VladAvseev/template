@@ -1,5 +1,5 @@
 
-import { DateTimePicker } from "@mui/x-date-pickers"
+import { DatePicker } from "@mui/x-date-pickers"
 import { TVMDatePickerInstance } from "./VMDatePicker";
 
 type props = {
@@ -10,7 +10,7 @@ type props = {
 const VDatePicker: React.FC<props> = ({model, className}) => {
 	const { label, onChange } = model
 	return (
-		<DateTimePicker 
+		<DatePicker 
 			className={className}
 			label={label}
 			onChange={onChange} 

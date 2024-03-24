@@ -53,7 +53,7 @@ export const TimeLineRow: React.FC<prefs> = observer(({task, startDate, finishDa
 				? <>
 						<TaskWithDeadlineCells startDate={start_date} endDate={finish_date} task={task} daysRow={daysRow} />
 						{datesDiference(finishDate, deadline) > 0
-							? <EmptyCells startDate={datePlusOneDay(deadline)} endDate={dateMinusOneDay(finishDate)} daysRow={daysRow} /> 
+							? <EmptyCells startDate={datePlusOneDay(deadline)} endDate={finishDate} daysRow={daysRow} /> 
 							: null
 						}
 					</>
