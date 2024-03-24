@@ -1,18 +1,54 @@
 import { types } from "mobx-state-tree";
 import { Status } from "./status";
 import { api } from "../../../api";
+import { Task } from "./task";
+import { Responsible } from "./responsible_user";
 
 export const dashboard = types.model('dashboard')
 .volatile(() => ({
 	columns: [
 		Status.create({
-			status_name: 'Не начато',
-			tasks: []
-	}),
+			status_name: 'to_do',
+			tasks: [
+				Task.create({
+					id: 1,
+					title: 'Задача 1',
+					deadline: '2020-01-01',
+					responsible: Responsible.create({
+						user_id: 123,
+						username: 'Yuriy'
+					})
+				})
+			]
+		}),
 		Status.create({
-			status_name: 'Задачи',
-			tasks: []
-		})
+			status_name: 'in_progress',
+			tasks: [
+				Task.create({
+					id: 1,
+					title: 'Задача 1',
+					deadline: '2020-01-01',
+					responsible: Responsible.create({
+						user_id: 123,
+						username: 'Yuriy'
+					})
+				})
+			]
+		}),
+		Status.create({
+			status_name: 'done',
+			tasks: [
+				Task.create({
+					id: 1,
+					title: 'Задача 1',
+					deadline: '2020-01-01',
+					responsible: Responsible.create({
+						user_id: 123,
+						username: 'Yuriy'
+					})
+				})
+			]
+		}),
 	],
 	currentProgress: 13.37
 }))

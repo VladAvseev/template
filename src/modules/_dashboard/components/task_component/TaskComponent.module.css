@@ -5,4 +5,10 @@
     border: 1px solid teal;
     margin-top: 5px;
     margin-bottom: 5px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.taskComponent:hover {
+    background-color: #f0f0f0;
 }
