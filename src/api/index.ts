@@ -54,8 +54,8 @@ export type TGetTaskDescriptionResponse = {
 	created_at: string,
 	deadline: string,
 	responsible: {
-			user_id: number,
-			username: string
+		id: number,
+		name: string
 	}
 	warnings: TWarning[],
 	is_archieved: boolean,
@@ -94,7 +94,7 @@ export type TEditTaskParams = {
 		deadline: string, // dd.mm.yyyy
 		responsible_user_id: number,
 		days_for_completion: number,
-		dependedependencies: {
+		dependencies: {
 			task_id: number;
 			type: TDependencyType;
 		}[]
@@ -105,11 +105,11 @@ export type TCreateTaskParams = {
 	title: string,
 	description: string,
 	deadline: string, // dd.mm.yyyy
-	responsible_id: number,
-	estimated_completion_time: number,
-	dependedependencies: {
+	responsible_user_id: number,
+	days_for_completion: number,
+	dependencies: {
 		task_id: number;
-		depend: TDependencyType
+		type: TDependencyType
 	}[]
 };
 

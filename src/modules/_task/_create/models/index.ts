@@ -11,12 +11,13 @@ import { api } from "../../../../api";
 import { TDependTasks } from "../../../../types/TDependTasks";
 import { TDependencyType } from "../../../../types/TDependencyType";
 import { TCreateTaskParams } from "../../../../api";
+import { redirect } from "react-router-dom";
 
 
 export const createTask = types.model('createTask')
 .volatile(() => ({
 	// здесь будут модели компонентов страницы
-
+	isPending: false,
 	isForm: false,
 	titleText: VMTextField.create({
 		label: "Название задачи"
@@ -27,25 +28,6 @@ export const createTask = types.model('createTask')
 	}),
 	daysField: VMNumberTextField.create({
 		label: "Трудоемкость ч/дн"
-	}),
-	taskStatusSelect: VMSelect.create({
-		label: "Статус задачи",
-		options: [MSelectOption.create ({
-			label: "Создана",
-			value: "to_do",
-			isSelected: false,
-			isDisabled: false,
-		}), MSelectOption.create ({
-			label: "В процессе",
-			value: "in_progres",
-			isSelected: false,
-			isDisabled: false,
-		}), MSelectOption.create ({
-			label: "Выполнена",
-			value: "done",
-			isSelected: false,
-			isDisabled: false,
-		})]
 	}),
 	taskResponsibleSelect: VMSelect.create({
 		label: "Ответственный за задачу",
@@ -85,9 +67,7 @@ export const createTask = types.model('createTask')
 	addBtn: VMButton.create({
 		text: "Создать новую связь"
 	}),
-	listDepends: [
-		
-		] as (TDependTasks & {type: string, title: string})[],
+	listDepends: [] as (TDependTasks & {type: string, title: string})[],
 	deliteDependBtn: VMButton.create({
 		text: "Удалить связь"
 	})
@@ -99,6 +79,9 @@ export const createTask = types.model('createTask')
 .actions((self) => ({
 	setIsForm(value: boolean) {
 		self.isForm = value
+	},
+	setIsPending(value: boolean) {
+		self.isPending = value
 	},
 	async fetchUserSelect(){
 		const res = await api.getUsers();
@@ -132,22 +115,20 @@ export const createTask = types.model('createTask')
 			}
 				]);
 		}),
-		self.createBtn.setOnClick(() => {
-				self.createNewTask({
+		self.createBtn.setOnClick(async () => {
+				self.setIsPending(true);
+				const date = new Date(self.dateSelect.value);
+				await self.createNewTask({
 				title: self.titleText.value,
 				description: self.descriptionText.value,
-				deadline: self.dateSelect.value,
-				responsible_id: Number(self.taskResponsibleSelect.selected.value),
-				estimated_completion_time: Number(self.daysField.value),
-				dependedependencies: self.listDepends
+				deadline: `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}-${date.getDate() < 10 ? '0' : ''}${date.getDate()}`,
+				responsible_user_id: Number(self.taskResponsibleSelect.selected.value),
+				days_for_completion: Number(self.daysField.value),
+				dependencies: self.listDepends.map((item) => ({ task_id: item.task_id, type: item.depend}))})
+				window.location.replace('/dashboard');
 			});
-		}),
-		self.deliteDependBtn.setOnClick(() => {
-
-		})
-	}
 	// здесь другие методы страницы
-}))
+}}))
 .actions((self) => ({
 	start() {
 		console.log(2)

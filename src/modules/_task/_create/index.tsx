@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import { createTask } from "./models";
 import { useEffect} from "react";
-import { Paper, Typography } from "@mui/material";
+import { CircularProgress, Paper, Typography } from "@mui/material";
 import VTextField from "../../../mvvm/TextField/VTextField";
 import VButton from "../../../mvvm/Button/VButton";
 import VSelect from "../../../mvvm/Select/VSelect";
@@ -52,7 +52,7 @@ import { observer } from "mobx-react-lite";
 	},
 	header: {
 		textAlign: "center",
-		marginBottom: "10px"
+		marginBottom: "20px"
 	}
  }));
 
@@ -61,8 +61,8 @@ export const CreateTaskPage: React.FC = observer(() => {
 		addBtn, listDepends, 
 		daysField, titleText, createBtn, 
 		taskResponsibleSelect, descriptionText, 
-		taskStatusSelect, dateSelect, taskSelect, 
-		connectionSelect, setConnectionBtn} = createTask;
+		dateSelect, taskSelect, 
+		connectionSelect, setConnectionBtn, isPending} = createTask;
 
 
 	useEffect(() => {
@@ -72,6 +72,8 @@ export const CreateTaskPage: React.FC = observer(() => {
 	const styles = useStyles();
 	return (
 		<Paper className={styles.taskForm} elevation={3}>
+			{isPending ? <CircularProgress /> 
+			: <>
 			<Typography variant="h4" className={styles.header}>Создание задачи</Typography>
 			<div className={styles.container}>
 				<span className={styles.column}>
@@ -81,7 +83,6 @@ export const CreateTaskPage: React.FC = observer(() => {
 					<VTextField className={styles.description} model={descriptionText}/>
 				</span>
 				<span className={styles.column}>
-					<VSelect className={styles.taskSelect} model={taskStatusSelect}/>
 					<VSelect className={styles.taskSelect} model={taskResponsibleSelect}/> 
 					<div className={styles.container}>                                     	
 						<VDatePicker className={styles.params} model={dateSelect}/>
@@ -102,7 +103,8 @@ export const CreateTaskPage: React.FC = observer(() => {
 			</div>
 			<div className={styles.containerBtn}>
 				<VButton model={createBtn}/>
-			</div>                      
+			</div></>
+			 }                      
   		</Paper> 
 		);
 		

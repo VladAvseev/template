@@ -2,7 +2,7 @@ import { editTask } from "./models";
 import { makeStyles } from "@material-ui/styles";
 import { useEffect} from "react";
 import { observer } from "mobx-react-lite";
-import { Paper } from "@mui/material";
+import { Paper, CircularProgress, Typography } from "@mui/material";
 import VTextField from "../../../mvvm/TextField/VTextField";
 import VButton from "../../../mvvm/Button/VButton";
 import VSelect from "../../../mvvm/Select/VSelect";
@@ -14,7 +14,8 @@ import { useParams } from "react-router-dom";
  const useStyles = makeStyles(() => ({
 	taskForm: {
 		padding: "20px",
-		width: "50%", 
+		width: "90vw", 
+		height: "calc(100vh - 110px)",
 		margin: "0 auto"
 	},
 	container: {
@@ -25,7 +26,8 @@ import { useParams } from "react-router-dom";
 	containerBtn: {
 		display: "flex",
 		justifyContent: "space-between",
-		marginTop: "10px"
+		marginTop: "10px",
+		alignSelf: "end"
 	},
 	column: {
 		width: "45%"
@@ -36,6 +38,7 @@ import { useParams } from "react-router-dom";
 	},
 	description: {
 		width: "100%",
+		marginTop: "10px"
 	},
 	params: {
 		width: "45%"
@@ -49,10 +52,12 @@ import { useParams } from "react-router-dom";
 		padding: "10px"
 	},
 	header: {
-		textAlign: "center"
+		textAlign: "center",
+		marginBottom: "10px"
 	},
-	text: {
-		paddingBottom: "10px"
+	status: {
+		margin: "20px 0",
+		fontSize: "20px"
 	}
  }));
 
@@ -62,7 +67,7 @@ export const EditTaskPage: React.FC = observer(() => {
 		daysField, titleText, createBtn, 
 		taskResponsibleSelect, descriptionText, 
 		toDoBtn, inProgressBtn, doneBtn, dateSelect, taskSelect, 
-		connectionSelect, setConnectionBtn, status} = editTask;
+		connectionSelect, setConnectionBtn, status, isPending} = editTask;
 
 	const { id } = useParams();
 
@@ -74,10 +79,14 @@ export const EditTaskPage: React.FC = observer(() => {
 	const styles = useStyles();
 	return (
 		<Paper className={styles.taskForm} elevation={3}>
-			<h1 className={styles.header}>Редактирование задачи</h1>
+			{isPending ? <CircularProgress /> 
+			: <>
+			<Typography variant="h4" className={styles.header}>Редактирование задачи</Typography>
 			<div className={styles.container}>
 				<span className={styles.column}>
-					<VTextField className={styles.taskName} model={titleText}/>
+					<div className={styles.taskName}>
+					<VTextField model={titleText}/>
+					</div>
 					<VTextField className={styles.description} model={descriptionText}/>
 				</span>
 				<span className={styles.column}>
@@ -97,7 +106,17 @@ export const EditTaskPage: React.FC = observer(() => {
 						}
 
 					</div>
-					<div className={styles.text}>Статус: </div>
+					<div className={styles.status}>Статус:
+						{ status === "to_do" 
+							? <div> Запланирована</div>
+							:
+								status === "in_progres"
+								? <div> В процессе</div>
+								: status === "done"
+									? <div> Выполнена</div>
+									: <> Some text</>
+						}
+					</div>
 					<VSelect className={styles.taskSelect} model={taskResponsibleSelect}/> 
 					<div className={styles.container}>                                     	
 						<VDatePicker className={styles.params} model={dateSelect}/>
@@ -119,7 +138,8 @@ export const EditTaskPage: React.FC = observer(() => {
 			<div className={styles.containerBtn}>
 				<VButton model={deleteBtn}/>
 				<VButton model={createBtn}/>
-			</div>                      
+			</div></>
+			 }                         
   		</Paper> 
 		);
 })
