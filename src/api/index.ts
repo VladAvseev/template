@@ -66,9 +66,9 @@ export type TGetTaskDescriptionResponse = {
 	dependencies: [
 		{
 			type: string,
-			task_name: string,
+			title: string,
 			status: string,
-			task_id: number,
+			id: number,
 			warnings: TWarning[],
 		}
 	]
