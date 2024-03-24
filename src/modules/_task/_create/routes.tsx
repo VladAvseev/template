@@ -7,4 +7,4 @@ export function create() {
 				<Route path="/create_task" element={<CreateTaskPage />} />			
 			</Route>
   )
-}
+};

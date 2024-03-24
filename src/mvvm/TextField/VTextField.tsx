@@ -9,7 +9,7 @@ type props = {
 }
 
 const VTextField: React.FC<props> = ({model, className}) => {
-	const { label, value, variant, isError, helperText, onChange } = model
+	const { label, value, variant, isError, helperText, isMultiline, onChange } = model
 	return (
 		<TextField 
 			className={className}
@@ -19,6 +19,7 @@ const VTextField: React.FC<props> = ({model, className}) => {
 			error={isError}
 			helperText={helperText}
 			value={value}
+			multiline={isMultiline}
 		/>				
 	)
 };
