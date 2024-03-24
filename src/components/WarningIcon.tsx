@@ -3,7 +3,7 @@ import { TWarning } from "../types/TWarning";
 import { Tooltip } from "@mui/material";
 import { HardIcon } from "./HardIcon";
 import { makeStyles } from "@material-ui/styles";
-import { CrossIcon, CrossSoftIcon } from "./CrossSoftIcon";
+import { CrossSoftIcon } from "./CrossSoftIcon";
 import { CrossHardIcon } from "./CrossHardIcon";
 
 const useStyles = makeStyles(() => ({

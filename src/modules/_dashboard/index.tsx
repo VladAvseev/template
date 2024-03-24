@@ -50,7 +50,7 @@ export const DashboardPage: React.FC = observer(() => {
 				className={styles.title}
 				variant="h5"
 			>
-				Dashboard
+				Доска заданий
 			</Typography>
 			<div className={styles.dashboard}>
 				{ dashboard.columns.length == 0

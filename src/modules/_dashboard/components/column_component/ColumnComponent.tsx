@@ -9,9 +9,15 @@ type props = {
   }
 
 export const ColumnComponent: React.FC<props> = ({ status }) => {
+    const statusTranslations = {
+        "to_do": "Запланировано",
+        "in_progress": "В процессе",
+        "done": "Выполнено"
+    }
+
     return (
         <Paper className={c.columnComponent}>
-            <Typography style={{ textAlign: "center", marginBottom: 10 }}>{status.status_name}</Typography>
+            <Typography style={{ textAlign: "center", marginBottom: 10 }}>{statusTranslations[status.status_name]}</Typography>
             <div>
                 {status.tasks.map(task => <TaskComponent key={task.id} task={task} />)}
             </div>
