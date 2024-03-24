@@ -1,80 +1,54 @@
 import { types } from "mobx-state-tree";
-import { Status } from "./status";
+import { Status, TStatusInstance } from "./status";
 import { api } from "../../../api";
-import { Task } from "./task";
+import { json } from "react-router-dom";
+import { string } from "mobx-state-tree/dist/internal";
+import { TTaskInstance, Task } from "./task";
 import { Responsible } from "./responsible_user";
+import { TWarningInstance, Warning } from "./warning";
 
 export const dashboard = types.model('dashboard')
 .volatile(() => ({
-	columns: [
-		Status.create({
-			status_name: 'to_do',
-			tasks: [
-				Task.create({
-					id: 1,
-					title: 'Задача 1',
-					deadline: '2020-01-01',
-					responsible: Responsible.create({
-						user_id: 123,
-						username: 'Yuriy'
-					})
-				})
-			]
-		}),
-		Status.create({
-			status_name: 'in_progress',
-			tasks: [
-				Task.create({
-					id: 1,
-					title: 'Задача 1',
-					deadline: '2020-01-01',
-					responsible: Responsible.create({
-						user_id: 123,
-						username: 'Yuriy'
-					})
-				})
-			]
-		}),
-		Status.create({
-			status_name: 'done',
-			tasks: [
-				Task.create({
-					id: 1,
-					title: 'Задача 1',
-					deadline: '2020-01-01',
-					responsible: Responsible.create({
-						user_id: 123,
-						username: 'Yuriy'
-					})
-				})
-			]
-		}),
-	],
-	currentProgress: 13.37
+	columns: [],
+	currentProgress: 0
 }))
 .views(() => ({
 	
 }))
 .actions((self) => ({
 	setColumns: (data) => {
-		const colums = data.map((item) => Status.create({
+		const colums = data.map((item: TStatusInstance) => Status.create({
 			status_name: item.status_name,
-			tasks: item.tasks
-		}))
-		self.columns = colums;
+			order_number: item.order_number,
+			tasks: item.tasks.map((task: TTaskInstance) => Task.create({
+				id: task.id,
+				title: task.title,
+				deadline: task.deadline,
+				responsible: {
+					user_id: task.responsible.user_id,
+					username: task.responsible.username,
+				},
+				warnings: task.warnings.map((warning: TWarningInstance) => Warning.create({
+					type: warning.type,
+					task_id: warning.task_id
+				}))
+			})),
+		})).sort((a, b) => a.order_number - b.order_number)
+		self.columns = colums
+	},
+	setCurrentProgress: (progress: number) => {
+		self.currentProgress = progress;
 	}
 }))
 .actions((self) => ({
-	// здесь другие методы страницы
 	getTasks: async () => {
 		const res = await api.getDashboardTasks();
 		const {data: {
 			progress,
 			statuses,
 		}} = res
-		console.log(statuses)
+		self.setCurrentProgress(progress)
 		self.setColumns(statuses)
-		self.currentProgress = progress
 	}
 }))
 .actions((self) => ({
