@@ -32,8 +32,8 @@ export type TGetDashboardTasksResponse = {
 					title: string,
 					deadline: string,
 					responsible: {
-						user_id: number,
-						username: string,
+						id: number,
+						name: string,
 					},
 					warnings: TWarning[]
 				}
@@ -83,7 +83,7 @@ export type TGetTimelineDependenciesParams = {
 };
 
 export type TGetTimelineDependenciesResponse = {
-	tasks: TTimelineTask & { dependency_type: TDependencyType }
+	tasks: TTimelineTask[];
 };
 
 export type TEditTaskParams = {

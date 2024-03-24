@@ -4,7 +4,6 @@ const useStyles = makeStyles(() => ({
 	icon: {
 		width: 20,
 		height: 20,
-		borderRadius: '50%',
 		background: ' #FF8000',
 
 		display: 'flex',
@@ -13,7 +12,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-export const SoftIcon: React.FC = () => {
+export const CrossSoftIcon: React.FC = () => {
 
 	const styles = useStyles();
 	return (

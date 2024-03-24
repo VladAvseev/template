@@ -20,16 +20,14 @@ type props = {
 
 export const HeaderCell: React.FC<props> = ({ date, index }) => {
 	const now = new Date();
-	now.setMilliseconds(1);
+	now.setMilliseconds(0);
 	now.setSeconds(0);
 	now.setMinutes(0);
 	now.setHours(0);
-	now.setUTCMilliseconds(1);
+	now.setUTCMilliseconds(0);
 	now.setUTCSeconds(0);
 	now.setUTCMinutes(0);
 	now.setUTCHours(0);
-
-	console.log(now);
 
 	const styles = useStyles();
 	return <div 

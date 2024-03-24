@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
 		margin: '0 auto',
 		display: 'flex',
 		justifyContent: 'center',
-		boxShadow: '2px 2px 10px gray', 
+		boxShadow: '2px 2px 10px  #C2C2C2', 
 		padding: 5,
 		borderRadius: 10,
 	}

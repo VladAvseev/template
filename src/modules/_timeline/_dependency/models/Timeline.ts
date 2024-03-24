@@ -4,18 +4,15 @@ import { api } from "../../../../api";
 import { TTimelineTask } from "../../../../types/TTimelineTask";
 import { User } from "./User";
 import { Warning } from "./Warning";
+import { dependency } from ".";
 
 export const Timeline = types.model('Timeline').volatile(() => ({
 	tasks: [] as TTaskInstance[],
 	isPending: false,
-	isError: false,
 }))
 .actions((self) => ({
-	setIsPending(value: boolean) {
+	setIsPenging(value: boolean) {
 		self.isPending = value;
-	},
-	setIsError(value: boolean) {
-		self.isError = value;
 	},
 	setTasks(tasks: TTimelineTask[]) {
 		self.tasks = tasks.map((task) => {
@@ -32,7 +29,6 @@ export const Timeline = types.model('Timeline').volatile(() => ({
 			})
 		})
 
-		//если бэк не работает
 		// self.tasks = [
 		// 	Task.create({
 		// 		id: 1,
@@ -395,24 +391,15 @@ export const Timeline = types.model('Timeline').volatile(() => ({
 }))
 .actions((self) => ({
 	async fetch() {
-		try {
-			self.setIsPending(true);
-			self.setIsError(false);
-			const res = await api.getTimelineTasks();
-			const {
-				data: {
-					tasks,
-				} 
-			} = res;
-			self.setTasks(tasks);
-			self.setIsPending(false);
-		} catch(e) {
-			console.log(e);
-			self.setIsPending(false);
-			self.setIsError(true);
-		}
-		//если бэк не работает
-		// self.setTasks([]);
+		self.setIsPenging(true);
+		const res = await api.getTimelineDependencies({task_id: dependency.id});
+		const {
+			data: {
+				tasks,
+			} 
+		} = res;
+		self.setTasks(tasks);
+		self.setIsPenging(false);
 	}
 }))
 .actions((self) => ({
