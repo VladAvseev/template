@@ -17,17 +17,18 @@ export const dashboard = types.model('dashboard')
 }))
 .actions((self) => ({
 	setColumns: (data) => {
-		const colums = data.map((item: TStatusInstance) => Status.create({
+		console.log(data[0].responsible)
+		const colums = data.map((item: unknown) => Status.create({
 			status_name: item.status_name,
 			order_number: item.order_number,
 			tasks: item.tasks.map((task: TTaskInstance) => Task.create({
 				id: task.id,
 				title: task.title,
 				deadline: task.deadline,
-				responsible: {
-					user_id: task.responsible.user_id,
-					username: task.responsible.username,
-				},
+				responsible: Responsible.create({
+					user_id: task.responsible.id,
+					username: task.responsible.name,
+				}),
 				warnings: task.warnings.map((warning: TWarningInstance) => Warning.create({
 					type: warning.type,
 					task_id: warning.task_id

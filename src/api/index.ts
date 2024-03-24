@@ -32,8 +32,8 @@ export type TGetDashboardTasksResponse = {
 					title: string,
 					deadline: string,
 					responsible: {
-						user_id: number,
-						username: string,
+						id: number,
+						name: string,
 					},
 					warnings: TWarning[]
 				}
