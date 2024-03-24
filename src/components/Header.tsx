@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
 	if (location.pathname.includes('main_timeline')) {
 		return (
 			<Paper className={styles.header}>
-				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/dashboard'} >Доска задач</Link>
 				<Link href={'/create_task'} >Создать задачу</Link>
 			</Paper>
 		)
@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
 	if (location.pathname.includes('edit_task')) {
 		return (
 			<Paper className={styles.header}>
-				<Link href={'/dashboard'} >Доска</Link>
+				<Link href={'/dashboard'} >Доска задач</Link>
 				<Link href={'/main_timeline'} >Таймлайн</Link>
 				<Link href={'/create_task'} >Создать задачу</Link>
 			</Paper>

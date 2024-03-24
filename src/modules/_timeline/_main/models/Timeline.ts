@@ -8,10 +8,14 @@ import { Warning } from "./Warning";
 export const Timeline = types.model('Timeline').volatile(() => ({
 	tasks: [] as TTaskInstance[],
 	isPending: false,
+	isError: false,
 }))
 .actions((self) => ({
 	setIsPending(value: boolean) {
 		self.isPending = value;
+	},
+	setIsError(value: boolean) {
+		self.isError = value;
 	},
 	setTasks(tasks: TTimelineTask[]) {
 		self.tasks = tasks.map((task) => {
@@ -391,15 +395,22 @@ export const Timeline = types.model('Timeline').volatile(() => ({
 }))
 .actions((self) => ({
 	async fetch() {
-		self.setIsPending(true);
-		const res = await api.getTimelineTasks();
-		const {
-			data: {
-				tasks,
-			} 
-		} = res;
-		self.setTasks(tasks);
-		self.setIsPending(false);
+		try {
+			self.setIsPending(true);
+			self.setIsError(false);
+			const res = await api.getTimelineTasks();
+			const {
+				data: {
+					tasks,
+				} 
+			} = res;
+			self.setTasks(tasks);
+			self.setIsPending(false);
+		} catch(e) {
+			console.log(e);
+			self.setIsPending(false);
+			self.setIsError(true);
+		}
 		//если бэк не работает
 		// self.setTasks([]);
 	}
