@@ -3,7 +3,8 @@ import { TWarning } from "../types/TWarning";
 import { Tooltip } from "@mui/material";
 import { HardIcon } from "./HardIcon";
 import { makeStyles } from "@material-ui/styles";
-import { CrossIcon } from "./CrossIcon";
+import { CrossIcon, CrossSoftIcon } from "./CrossSoftIcon";
+import { CrossHardIcon } from "./CrossHardIcon";
 
 const useStyles = makeStyles(() => ({
 	wrapper: {
@@ -27,9 +28,9 @@ export const WarningIcon: React.FC<props> = ({ task_id, type }) => {
 	} else if (type === 'finish_hard') {
 		return <Tooltip placement="top" title="Рекомендуем срочно завершить задачу"><div className={styles.wrapper}><HardIcon /></div></Tooltip>
 	} else if (type === 'cross_soft') {
-		return <Tooltip placement="top" title={`Дедлайн задачи (${task_id}) пересекает эту задачу`}><div className={styles.wrapper}><CrossIcon /></div></Tooltip>
+		return <Tooltip placement="top" title={`Дедлайн задачи (${task_id}) пересекает эту задачу`}><div className={styles.wrapper}><CrossSoftIcon /></div></Tooltip>
 	} else if (type === 'cross_hard') {
-		return <Tooltip placement="top" title={`Дедлайн задачи (${task_id}) сильно пересекает эту задачу`}><div className={styles.wrapper}><CrossIcon /></div></Tooltip>
+		return <Tooltip placement="top" title={`Дедлайн задачи (${task_id}) сильно пересекает эту задачу`}><div className={styles.wrapper}><CrossHardIcon /></div></Tooltip>
 	} else if (type === 'late_deadline') {
 		return <Tooltip placement="top" title="Дедлайн просрочен"><div className={styles.wrapper}><HardIcon /></div></Tooltip>
 	}
