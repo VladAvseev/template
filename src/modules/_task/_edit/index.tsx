@@ -8,6 +8,7 @@ import VButton from "../../../mvvm/Button/VButton";
 import VSelect from "../../../mvvm/Select/VSelect";
 import VDatePicker from "../../../mvvm/DatePicker/VDatePicker";
 import { ColumnDepend } from "../components/ColumnDepend";
+import { useParams } from "react-router-dom";
 
 
  const useStyles = makeStyles(() => ({
@@ -49,19 +50,25 @@ import { ColumnDepend } from "../components/ColumnDepend";
 	},
 	header: {
 		textAlign: "center"
+	},
+	text: {
+		paddingBottom: "10px"
 	}
  }));
 
 export const EditTaskPage: React.FC = observer(() => {
 	const { start, isForm, 
-		addBtn, list, deleteBtn, 
+		addBtn, listDepends, deleteBtn, 
 		daysField, titleText, createBtn, 
 		taskResponsibleSelect, descriptionText, 
-		taskStatusSelect, dateSelect, taskSelect, 
-		connectionSelect, setConnectionBtn} = editTask;
+		toDoBtn, inProgressBtn, doneBtn, dateSelect, taskSelect, 
+		connectionSelect, setConnectionBtn, status} = editTask;
+
+	const { id } = useParams();
+
 
 	useEffect(() => {
-		start();
+		if (id) { start(Number(id))};
 	}, []);
 
 	const styles = useStyles();
@@ -74,7 +81,23 @@ export const EditTaskPage: React.FC = observer(() => {
 					<VTextField className={styles.description} model={descriptionText}/>
 				</span>
 				<span className={styles.column}>
-					<VSelect className={styles.taskSelect} model={taskStatusSelect}/>
+					<div className={styles.container}>
+						{ status === "to_do" 
+							? <VButton model={inProgressBtn}/>
+							:
+								status === "in_progres"
+								? <div>
+									<VButton model={toDoBtn}/>
+									<VButton model={doneBtn}/>
+								</div>
+								: status === "done"
+									? <VButton model={inProgressBtn}/>
+									: <>Some text</>
+
+						}
+
+					</div>
+					<div className={styles.text}>Статус: </div>
 					<VSelect className={styles.taskSelect} model={taskResponsibleSelect}/> 
 					<div className={styles.container}>                                     	
 						<VDatePicker className={styles.params} model={dateSelect}/>
@@ -82,7 +105,7 @@ export const EditTaskPage: React.FC = observer(() => {
 					</div> 
 				</span>
 			</div>
-			<ColumnDepend tasks={list} />
+			<ColumnDepend tasks={listDepends} />
 			<div>
 				{isForm
 					? <Paper className={styles.paperClmn}>

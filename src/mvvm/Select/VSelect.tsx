@@ -25,7 +25,7 @@ const VSelect: React.FC<props> = ({model, className, formControlClassName, label
 				labelId="select-label"
 				className={className}
 				fullWidth={true}
-				value={selected}
+				value={selected.value}
 				onChange={onChange}
 			>
 				{options.map((option: TMSelectOptionInstance) => (

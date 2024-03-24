@@ -54,7 +54,7 @@ import { observer } from "mobx-react-lite";
 
 export const CreateTaskPage: React.FC = observer(() => {
 	const { start, isForm, 
-		addBtn, list, deleteBtn, 
+		addBtn, listDepends, deleteBtn, 
 		daysField, titleText, createBtn, 
 		taskResponsibleSelect, descriptionText, 
 		taskStatusSelect, dateSelect, taskSelect, 
@@ -83,7 +83,7 @@ export const CreateTaskPage: React.FC = observer(() => {
 					</div> 
 				</span>
 			</div>
-			<ColumnDepend tasks={list} />
+			<ColumnDepend tasks={listDepends} />
 			<div>
 				{isForm
 					? <Paper className={styles.paperClmn}>

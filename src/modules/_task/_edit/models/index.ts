@@ -8,6 +8,9 @@ import VMNumberTextField from "../../../../mvvm/TextField/VMNumberTextField";
 import { DependTask} from "./dependsTask";
 import { apiDefineProperty } from "mobx/dist/internal";
 import { api } from "../../../../api";
+import { TDependTasks } from "../../../../types/TDependTasks";
+import { TDependencyType } from "../../../../types/TDependencyType";
+import { TGetTaskDescriptionParams } from "../../../../api";
 
 export const editTask = types.model('createTask')
 .volatile(() => ({
@@ -24,25 +27,16 @@ export const editTask = types.model('createTask')
 	daysField: VMNumberTextField.create({
 		label: "Трудоемкость ч/дн"
 	}),
-	taskStatusSelect: VMSelect.create({
-		label: "Статус задачи",
-		options: [MSelectOption.create ({
-			label: "Создана",
-			value: "to_do",
-			isSelected: false,
-			isDisabled: false,
-		}), MSelectOption.create ({
-			label: "В процессе",
-			value: "in_progres",
-			isSelected: false,
-			isDisabled: false,
-		}), MSelectOption.create ({
-			label: "Выполнена",
-			value: "done",
-			isSelected: false,
-			isDisabled: false,
-		})]
+	toDoBtn: VMButton.create({
+		text: "To do"
 	}),
+	inProgressBtn: VMButton.create({
+		text: "In progress"
+	}),
+	doneBtn: VMButton.create({
+		text: "Done"
+	}),
+	status: "",
 	taskResponsibleSelect: VMSelect.create({
 		label: "Ответственный за задачу",
 		options: []
@@ -53,33 +47,20 @@ export const editTask = types.model('createTask')
 	}),
 	taskSelect: VMSelect.create({
 		label: "Выбор задачи",
-		options: [
-		MSelectOption.create ({
-			label: "Задача 5",
-			value: "Задача 5",
-			isSelected: false,
-			isDisabled: false,	
-		}),
-		MSelectOption.create ({
-			label: "Задача 6",
-			value: "Задача 6",
-			isSelected: false,
-			isDisabled: false,
-		})
-		]
+		options: []
 	}),
 	connectionSelect: VMSelect.create({
 		label: "Выбор связи",
 		options: [
 			MSelectOption.create ({
 				label: "Следующая",
-				value: "Следующая",
+				value: "dependent_for",
 				isSelected: false,
 				isDisabled: false,
 			}),
 			MSelectOption.create ({
 				label: "Предыдущая",
-				value: "Предыдущая",
+				value: "depends_of",
 				isSelected: false,
 				isDisabled: false,
 			})
@@ -94,49 +75,22 @@ export const editTask = types.model('createTask')
 	addBtn: VMButton.create({
 		text: "Создать новую связь"
 	}),
-	list: [
-		DependTask.create({
-			id: 1,
-    		title: "Задача 1",
-    		type: "Предшествующая",
-    		status: "В процессе"
-		}),
-		DependTask.create({
-			id: 2,
-    		title: "Задача 2",
-    		type: "Предшествующая",
-    		status: "Завершена"
-		}),
-		DependTask.create({
-			id: 4,
-    		title: "Задача 4",
-    		type: "Следующая",
-    		status: "Создана"
-		})
-	]
+	listDepends: [
+
+	],
+	deliteDependBtn: VMButton.create({
+		text: "Удалить связь"
+	})
 }))
 .views((self) => ({
-	get data() {
-		return {
-				taskName: self.titleText.value,
-				description: self.descriptionText.value,
-				taskSelect: self.taskResponsibleSelect.selected,
-				taskStatus: self.taskStatusSelect.selected,
-				taskDate: self.dateSelect.value
-			}
-	},
-	get dependTask() {
-		return {
-			id: 7,
-			title: self.taskSelect.selected.valueOf,
-			type: self.connectionSelect.selected.valueOf,
-			status: "Назначена"
-		}
-	}
+	
 }))
 .actions((self) => ({
 	setIsForm(value: boolean) {
 		self.isForm = value
+	},
+	setStatus(value: string) {
+		self.status = value
 	},
 	async fetchUserSelect(){
 		const res = await api.getUsers();
@@ -149,22 +103,46 @@ export const editTask = types.model('createTask')
 		console.log(res);
 		const { data: {tasks} } = res;
 		self.taskSelect.setListTasks(tasks)
+	},
+	async setListDepends(value: TDependTasks[]){
+		self.listDepends
+	},
+	async getTask(value: TGetTaskDescriptionParams){
+		const res = await api.getTaskDescription(value);
+		const { data: task } = res;
+		self.titleText.value = task.title;
+		self.descriptionText.value = task.description;
+		self.daysField.value = task.days_for_completion.toString()
 	}
 }))
 .actions((self) => ({
 	afterCreate(){
-		self.createBtn.setOnClick(() => {console.log(self.data)}),
 		self.addBtn.setOnClick(() => {self.setIsForm(true); console.log(self.isForm)}),
-		self.setConnectionBtn.setOnClick(() => {self.setIsForm(false); console.log(self.isForm);
+		self.setConnectionBtn.setOnClick(() => {
+			self.setIsForm(false);
+			self.setListDepends([...self.listDepends, 
+				{id: Number(self.taskSelect.selected.value), 
+					name: self.taskSelect.selected.label, 
+					depend: self.connectionSelect.selected.value as TDependencyType}]);
+		}),
+		self.toDoBtn.setOnClick(() => {
+			self.setStatus("to_do")
+		}),
+		self.inProgressBtn.setOnClick(() => {
+			self.setStatus("in_progres")
+		}),
+		self.doneBtn.setOnClick(() => {
+			self.setStatus("done")
 		})
+
 	}
-	// здесь другие методы страницы
 }))
 .actions((self) => ({
-	start() {
+	start(id: number) {
 		console.log(2)
 		// здесь логика того что будет происходить при открытии страницы
 		self.fetchUserSelect()
+		self.getTask({task_id: id})
 	},
 }))
 .create({});

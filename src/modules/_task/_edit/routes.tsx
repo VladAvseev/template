@@ -4,7 +4,7 @@ import { EditTaskPage } from "."
 export function edit() {
   return (
 			<Route>
-				<Route path="/edit_task" element={<EditTaskPage />} />			
+				<Route path="/edit_task/:id" element={<EditTaskPage />} />			
 			</Route>
   )
 }

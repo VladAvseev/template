@@ -8,6 +8,10 @@ import VMNumberTextField from "../../../../mvvm/TextField/VMNumberTextField";
 import { DependTask} from "./dependsTask";
 import { apiDefineProperty } from "mobx/dist/internal";
 import { api } from "../../../../api";
+import { TDependTasks } from "../../../../types/TDependTasks";
+import { TDependencyType } from "../../../../types/TDependencyType";
+import { TCreateTaskParams } from "../../../../api";
+
 
 export const createTask = types.model('createTask')
 .volatile(() => ({
@@ -60,13 +64,13 @@ export const createTask = types.model('createTask')
 		options: [
 			MSelectOption.create ({
 				label: "Следующая",
-				value: "Следующая",
+				value: "dependent_for",
 				isSelected: false,
 				isDisabled: false,
 			}),
 			MSelectOption.create ({
 				label: "Предыдущая",
-				value: "Предыдущая",
+				value: "depends_of",
 				isSelected: false,
 				isDisabled: false,
 			})
@@ -81,28 +85,16 @@ export const createTask = types.model('createTask')
 	addBtn: VMButton.create({
 		text: "Создать новую связь"
 	}),
-	list: [	],
+	listDepends: [
+
+		],
 	deliteDependBtn: VMButton.create({
 		text: "Удалить связь"
 	})
 }))
 .views((self) => ({
-	get data() {
-		return {
-				title: self.titleText.value,
-				description: self.descriptionText.value,
-				deadline: self.dateSelect.value,
-				responsibleUserID: {},
-				estimated_completion_time: self.daysField.value,
-				dependedependencies: [ ]	
-			}
-	},
-	get dependTask() {
-		return {
-			task_id: "",
-			type: ""
-		}
-	}
+	
+	
 }))
 .actions((self) => ({
 	setIsForm(value: boolean) {
@@ -119,15 +111,35 @@ export const createTask = types.model('createTask')
 		console.log(res);
 		const { data: {tasks} } = res;
 		self.taskSelect.setListTasks(tasks)
+	},
+	async setListDepends(value: TDependTasks[]){
+		self.listDepends
+	},
+	async createNewTask(value: TCreateTaskParams) {
+		await api.createTask(value);
 	}
 }))
 .actions((self) => ({
 	afterCreate(){
-		self.createBtn.setOnClick(() => {console.log(self.data)}),
 		self.addBtn.setOnClick(() => {self.setIsForm(true)}),
 		self.setConnectionBtn.setOnClick(() => {
 			self.setIsForm(false);
-			
+			self.setListDepends([...self.listDepends, 
+				{id: Number(self.taskSelect.selected.value), 
+					name: self.taskSelect.selected.label, depend: self.connectionSelect.selected.value as TDependencyType}]);
+		}),
+		self.createBtn.setOnClick(() => {
+				self.createNewTask({
+				title: self.titleText.value,
+				description: self.descriptionText.value,
+				deadline: self.dateSelect.value,
+				responsible_id: Number(self.taskResponsibleSelect.selected.value),
+				estimated_completion_time: Number(self.daysField.value),
+				dependedependencies: self.listDepends
+			});
+		}),
+		self.deliteDependBtn.setOnClick(() => {
+
 		})
 	}
 	// здесь другие методы страницы

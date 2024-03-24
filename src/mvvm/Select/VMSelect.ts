@@ -10,8 +10,8 @@ const VMSelect = types.model('VMSelect', {
 	label: types.optional(types.string, ''),
 })
 .views((self) => ({
-	get selected(): string {
-		return self.options.filter((option) => option.isSelected)[0]?.value || '';
+	get selected() {
+		return self.options.filter((option) => option.isSelected)[0] || '';
 	},
 }))
 .actions((self) => ({
