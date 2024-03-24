@@ -16,7 +16,7 @@ export const TDependTaskComponent: React.FC<props> = ({ task }) => {
       <span className={style.taskDescription}>
       <p className={style.taskName}>id: {task.task_id}</p>
       <h3 className={style.taskName}>Задача: {task.title}</h3>
-      <p className={style.taskName}>Связь: {task.type}</p>
+      <p className={style.taskName}>Тип связи: {task.type}</p>
       </span>
       
     </Paper>

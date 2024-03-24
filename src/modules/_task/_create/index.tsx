@@ -25,7 +25,8 @@ import { observer } from "mobx-react-lite";
 	containerBtn: {
 		display: "flex",
 		justifyContent: "flex-end",
-		marginTop: "10px"
+		marginTop: "10px",
+		alignSelf: "end"
 	},
 	column: {
 		width: "45%"
@@ -50,7 +51,8 @@ import { observer } from "mobx-react-lite";
 		padding: "10px"
 	},
 	header: {
-		textAlign: "center"
+		textAlign: "center",
+		marginBottom: "10px"
 	}
  }));
 
