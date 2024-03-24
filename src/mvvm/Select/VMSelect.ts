@@ -1,5 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 import MSelectOption from "./MSelectOption";
+import { TUser } from "../../types/TUser";
 
 export type TVMSelectInstance = Instance<typeof VMSelect>;
 
@@ -21,6 +22,16 @@ const VMSelect = types.model('VMSelect', {
 				option.setIsSelected(false);
 			}
 		})
+	},
+	setOptions(value: TUser[]) {
+		self.options = value.map((user) => 
+		MSelectOption.create({
+			label: user.name,
+			value: user.id.toString(),
+			isSelected: false,
+			isDisabled: false	
+		})
+		)
 	}
 }))
 export default VMSelect;

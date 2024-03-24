@@ -7,6 +7,7 @@ const VMTextField = types.model('VMTextField', {
 	label: types.optional(types.string, ''),
 	value: types.optional(types.string, ''),
 	isError: types.optional(types.boolean, false),
+	isMultiline: types.optional(types.boolean, false),
 	helperText: types.optional(types.string, ''),
 	variant: types.optional(types.string, 'outlined')
 })

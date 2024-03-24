@@ -1,0 +1,17 @@
+.taskLine {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.taskName {
+    margin: 5px;
+}
+
+.taskDescription {
+    display: flex;
+    flex-direction: row;
+}
