@@ -143,6 +143,12 @@ export const editTask = types.model('createTask')
 		console.log(res);	
 		const { data: {users} } = res;
 		self.taskResponsibleSelect.setOptions(users)
+	},
+	async fetchTaskList(){
+		const res = await api.getAllTasks();
+		console.log(res);
+		const { data: {tasks} } = res;
+		self.taskSelect.setListTasks(tasks)
 	}
 }))
 .actions((self) => ({

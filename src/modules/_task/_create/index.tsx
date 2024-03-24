@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/styles";
 import { createTask } from "./models";
 import { useEffect} from "react";
-import { observer } from "mobx-react-lite";
 import { Paper } from "@mui/material";
 import VTextField from "../../../mvvm/TextField/VTextField";
 import VButton from "../../../mvvm/Button/VButton";
 import VSelect from "../../../mvvm/Select/VSelect";
 import VDatePicker from "../../../mvvm/DatePicker/VDatePicker";
 import { ColumnDepend } from "../components/ColumnDepend";
+import { observer } from "mobx-react-lite";
 
 
  const useStyles = makeStyles(() => ({
@@ -18,7 +18,8 @@ import { ColumnDepend } from "../components/ColumnDepend";
 	},
 	container: {
 		display: "flex",
-		justifyContent: "space-between"
+		justifyContent: "space-between",
+		marginBottom: "10px"
 	},
 	containerBtn: {
 		display: "flex",
@@ -26,10 +27,7 @@ import { ColumnDepend } from "../components/ColumnDepend";
 		marginTop: "10px"
 	},
 	column: {
-		width: "45%",
-		display: "flex",
-		justifyContent: "space-between",
-		flexDirection: "column"
+		width: "45%"
 	},
 	taskName: {
 		width: "100%",
@@ -47,8 +45,7 @@ import { ColumnDepend } from "../components/ColumnDepend";
 	},
 	paperClmn: {
 		width: "98%",
-		padding: "10px",
-		alignItems: "center"
+		padding: "10px"
 	},
 	header: {
 		textAlign: "center"
@@ -56,11 +53,13 @@ import { ColumnDepend } from "../components/ColumnDepend";
  }));
 
 export const CreateTaskPage: React.FC = observer(() => {
-	const { start, isForm, addBtn, 
-		list, deleteBtn, daysField, 
-		titleText, createBtn, taskResponsibleSelect, 
-		descriptionText, dateSelect, taskSelect, 
+	const { start, isForm, 
+		addBtn, list, deleteBtn, 
+		daysField, titleText, createBtn, 
+		taskResponsibleSelect, descriptionText, 
+		taskStatusSelect, dateSelect, taskSelect, 
 		connectionSelect, setConnectionBtn} = createTask;
+
 
 	useEffect(() => {
 		start();
@@ -76,6 +75,7 @@ export const CreateTaskPage: React.FC = observer(() => {
 					<VTextField className={styles.description} model={descriptionText}/>
 				</span>
 				<span className={styles.column}>
+					<VSelect className={styles.taskSelect} model={taskStatusSelect}/>
 					<VSelect className={styles.taskSelect} model={taskResponsibleSelect}/> 
 					<div className={styles.container}>                                     	
 						<VDatePicker className={styles.params} model={dateSelect}/>
@@ -100,4 +100,5 @@ export const CreateTaskPage: React.FC = observer(() => {
 			</div>                      
   		</Paper> 
 		);
-})
+		
+});

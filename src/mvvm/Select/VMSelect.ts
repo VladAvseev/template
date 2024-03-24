@@ -1,6 +1,7 @@
 import { Instance, types } from "mobx-state-tree";
 import MSelectOption from "./MSelectOption";
 import { TUser } from "../../types/TUser";
+import { TSelectTask } from "../../types/TSelectTask";
 
 export type TVMSelectInstance = Instance<typeof VMSelect>;
 
@@ -31,6 +32,16 @@ const VMSelect = types.model('VMSelect', {
 			isSelected: false,
 			isDisabled: false	
 		})
+		)
+	},
+	setListTasks(value: TSelectTask[]) {
+		self.options = value.map((task) =>
+			MSelectOption.create({
+				label: task.title,
+				value: task.id.toString(),
+				isSelected: false,
+				isDisabled: false
+			})
 		)
 	}
 }))
