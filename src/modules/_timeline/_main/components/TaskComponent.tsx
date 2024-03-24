@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 		color: 'white',
 		'&:hover': {
 			opacity: 0.75,
-			border: '2px solid black',
+			border: '2px solid #444444',
 		},
 		display: 'flex',
 		alignItems: 'center',

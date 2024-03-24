@@ -165,7 +165,7 @@ export const api = {
 		return apiPut(URLS.editTask, params);
 	},
 	createTask: (params: TCreateTaskParams): Promise<AxiosResponse> => {
-		return apiPut(URLS.createTask, params);
+		return apiPost(URLS.createTask, params);
 	},
 	addTaskDependency: (params: TAddTaskDependencyParams): Promise<AxiosResponse> => {
 		return apiPost(URLS.addTaskDependency, params);
