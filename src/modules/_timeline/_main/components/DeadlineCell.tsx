@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
 	cell: {
-		borderRight: '5px solid red',
+		borderRight: '5px solid  #CC0000',
 		minWidth: '100px',
 	}
 }));

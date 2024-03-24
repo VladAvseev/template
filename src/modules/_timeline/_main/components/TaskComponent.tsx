@@ -33,9 +33,9 @@ export const TaskComponent: React.FC<props> = ({ task }) => {
 
 	const styles = useStyles();
 	return (
-		<div className={styles.task} style={{background: task.status === 'to_do' ? 'gray' : task.status === 'in_progress' ? 'blue' : 'green'}}>
+		<div className={styles.task} style={{background: task.status === 'to_do' ? ' #C2C2C2' : task.status === 'in_progress' ? ' #0087cd' : '  #21A038'}}>
 			<div className={styles.flex}>
-				<div>{'('}{task.id}{')'} {task.title}</div> <div>исполнитель:{task.responsible.name}</div>
+				<div>{'('}{task.id}{')'} {task.title}</div> <div>исполнитель: {task.responsible.name}</div>
 			</div>
 			<div className={styles.flex}>
 				{task.warnings.length ? task.warnings.map((warn, index) => <WarningIcon key={index} {...warn} />) : null}
